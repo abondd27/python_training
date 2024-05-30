@@ -70,6 +70,8 @@ class ContactHelper:
         wd.find_element(By.NAME, "notes").send_keys(contact.note)
         # submit contact creation
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
+        wd.find_element(By.LINK_TEXT, "home page").click()
+
 
     def open_new_contact_page(self):
         wd = self.app.wd

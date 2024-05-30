@@ -16,8 +16,9 @@ class SessionHelper:
         wd.find_element(By.NAME, "pass").click()
         wd.find_element(By.NAME, "pass").clear()
         wd.find_element(By.NAME, "pass").send_keys(password)
-        wd.find_element(By.CSS_SELECTOR, "input[type=\"submit\"]").click()
+        wd.find_element(By.ID, "LoginForm").submit()
 
     def logout(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "Logout").click()
+        wd.find_element(By.NAME, "user")
