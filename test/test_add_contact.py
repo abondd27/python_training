@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
-from contact import Contact
+from model.contact import Contact
 
 class test_add_contact(unittest.TestCase):
     def setUp(self):
