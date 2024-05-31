@@ -79,12 +79,20 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        # Click to Home
+        wd.find_element(By.LINK_TEXT, "home").click()
+        # Select contact
         wd.find_element(By.NAME, "selected[]").click()
+        # Delete contact
         wd.find_element(By.XPATH, "//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        # Click to Home
+        wd.find_element(By.LINK_TEXT, "home").click()
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
+        # Click to Home
+        wd.find_element(By.LINK_TEXT, "home").click()
         # Select Edit First User
         wd.find_element(By.XPATH, "//td[8]/a").click()
         # Fill contact form
