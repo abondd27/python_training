@@ -157,3 +157,8 @@ class ContactHelper:
         wd.find_element(By.NAME, "update").click()
         # Return to Home Page
         wd.find_element(By.LINK_TEXT, "home page").click()
+
+    def count_contacts(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "home").click()
+        return len(wd.find_elements(By.NAME, "selected[]"))
