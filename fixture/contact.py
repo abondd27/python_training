@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -72,6 +73,7 @@ class ContactHelper:
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
         # Return to Home Page
         wd.find_element(By.LINK_TEXT, "home page").click()
+        self.contact_cache = None
 
     def open_new_contact_page(self):
         wd = self.app.wd
@@ -89,6 +91,7 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         # Click to Home
         wd.find_element(By.LINK_TEXT, "home").click()
+        self.contact_cache = None
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
@@ -158,19 +161,23 @@ class ContactHelper:
         wd.find_element(By.NAME, "update").click()
         # Return to Home Page
         wd.find_element(By.LINK_TEXT, "home page").click()
+        self.contact_cache = None
 
     def count_contacts(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "home").click()
         return len(wd.find_elements(By.NAME, "selected[]"))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        wd.find_element(By.XPATH, "//li[1]/a").click()
-        contact_list = []
-        for element in wd.find_elements(By.XPATH, "//tr/td/input"):
-            id = element.get_attribute("id")
-            firstname = element.get_attribute("title").split()[1][1:]
-            lastname = element.get_attribute("title").split()[2][:-1]
-            contact_list.append(Contact(firstname=firstname, lastname=lastname, id=id))
-        return contact_list
+        if self.contact_cache is None:
+            wd = self.app.wd
+            wd.find_element(By.XPATH, "//li[1]/a").click()
+            self.contact_cache = []
+            for element in wd.find_elements(By.XPATH, "//tr/td/input"):
+                id = element.get_attribute("id")
+                firstname = element.get_attribute("title").split()[1][1:]
+                lastname = element.get_attribute("title").split()[2][:-1]
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)
