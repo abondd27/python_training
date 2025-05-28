@@ -6,7 +6,7 @@ def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
     contact = Contact(firstname="Ivan", middlename="Ivanovich", lastname="Ivanov", nickname="vanya",
                       title="Manager", company="TestCo", home="23456",
-                      mobile="sdfgh", work="898783", fax="9000", email="test1@mail.com",
+                      mobile="23456", work="898783", fax="9000", email1="test1@mail.com",
                       email2="test2@mail.com",
                       email3="test3@mail.com", bday="21", month="March", year="1980",
                       address2="Some Address 2 345,78",
