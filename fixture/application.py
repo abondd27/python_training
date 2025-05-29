@@ -45,8 +45,7 @@ class Application:
 
     def go_to_home(self):
         wd = self.wd
-        if not (wd.find_elements(By.XPATH, "//div[4]/div/form/input") and len(wd.find_elements(By.NAME,"add")) == 0):
-            wd.find_element(By.XPATH,"//div[3]/ul/li[1]").click()
+        wd.find_element(By.XPATH,"//div[3]/ul/li[1]").click()
 
     def destroy(self):
         self.wd.quit()
