@@ -73,7 +73,7 @@ class ContactHelper:
         # submit contact creation
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
         # Return to Home Page
-        wd.find_element(By.LINK_TEXT, "home page").click()
+        wd.find_element(By.LINK_TEXT, "home").click()
         self.contact_cache = None
 
     def open_new_contact_page(self):

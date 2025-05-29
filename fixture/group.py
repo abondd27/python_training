@@ -8,11 +8,12 @@ class GroupHelper:
 
     def __init__(self, app):
         self.app = app
+        self.wait = app.wait
 
     def return_to_groups_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements(By.NAME, "new")) > 0):
-            wd.find_element(By.LINK_TEXT, "group page").click()
+        element = self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "group page")))
+        element.click()
 
     def create(self, group):
         wd = self.app.wd
@@ -97,3 +98,22 @@ class GroupHelper:
                 id = element.find_element(By.NAME, "selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, id=id))
         return list(self.group_cache)
+
+
+    def get_new_group_id(self):
+        wd = self.app.wd
+        # Получаем список всех элементов групп и берём последний (новый) ID
+        groups = wd.find_elements(By.CSS_SELECTOR, "span.group")
+        if not groups:
+            return None
+        last_group = groups[-1]
+        return int(last_group.find_element(By.NAME, "selected[]").get_attribute("value"))
+
+    def delete_all_groups(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        # Выделяем все группы
+        wd.find_element(By.CSS_SELECTOR, "input[name='selected[]']").click()
+        # Удаляем
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
