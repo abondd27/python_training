@@ -249,7 +249,7 @@ class ContactHelper:
 
     def count_contacts(self):
         wd = self.app.wd
-        wd.find_element(By.LINK_TEXT, "home").click()
+        self.app.go_to_home()
         return len(wd.find_elements(By.NAME, "selected[]"))
 
     contact_cache = None
