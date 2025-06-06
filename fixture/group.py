@@ -117,3 +117,17 @@ class GroupHelper:
         # Удаляем
         wd.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
+
+
+    def delete_group_by_id(self, id):
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        wd.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
+        self.group_cache = None
+
+
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element(By.CSS_SELECTOR, "input[value='%s']" %id).click()

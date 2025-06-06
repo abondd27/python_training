@@ -303,3 +303,19 @@ class ContactHelper:
         work = re.search("W: (.*)", text).group(1)
         return Contact(home=home, mobile=mobile, work=work)
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()  # Переходим на главную страницу
+
+        # Находим чекбокс контакта по ID и кликаем
+        wd.find_element(By.CSS_SELECTOR, f"input[value='{id}']").click()
+
+        # Нажимаем кнопку "Delete"
+        wd.find_element(By.XPATH, "//input[@value='Delete']").click()
+
+        # Подтверждаем удаление в алерте (если есть)
+        wd.switch_to.alert.accept()
+
+        # Ждем обновления страницы и возвращаемся на главную
+        self.app.open_home_page()
+        self.contact_cache = None  # Сбрасываем кеш контактов
